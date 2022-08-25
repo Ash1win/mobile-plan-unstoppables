@@ -17,6 +17,8 @@ public class MobilePlanApp {
 		return (evt) -> {
 			
 		MobilePlan plan = new MobilePlan();
+		
+		plan.setId((long)1);
 		plan.setName("Monthly pack");
 		plan.setValidity(28);
 		plan.setDescription("2 gb/par day");
@@ -29,6 +31,21 @@ public class MobilePlanApp {
 		plan.setDescription("1 gb/par day");
 		
 		mobilePlanSrvc.update(plan);
+		
+		MobilePlan plan2 = new MobilePlan();
+		
+		plan2.setName("Monthly pack");
+		plan2.setValidity(56);
+		plan2.setDescription("3 gb/par day");
+		
+		mobilePlanSrvc.create(plan2);
+		
+		boolean result = mobilePlanSrvc.delete((long)1006);
+		
+		if(result) {
+			System.out.println("deleted succesfully!");
+		}
+		
 //		Book demoBook = new Book();
 //		demoBook.setId(1);
 //		demoBook.setName("Hansen CSD Book");
