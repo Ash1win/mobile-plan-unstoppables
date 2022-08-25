@@ -38,8 +38,9 @@ public class MobilePlanSrvc {
 
 	public Object update(MobilePlan tobemerged) {
 		//TODO Homework... write the code to upgrade
+		MobilePlan mobileplan = mobilePlanDao.save(tobemerged);
 		
-		return null;
+		return mobileplan;
 	}
 
 	public boolean delete(Long planid) {
