@@ -15,20 +15,21 @@ public class MobilePlanApp {
 	CommandLineRunner init(MobilePlanSrvc mobilePlanSrvc) {
 		
 		return (evt) -> {
-			
+		
+		//create 
 		MobilePlan plan = new MobilePlan();
 		
-		plan.setId((long)1);
 		plan.setName("Monthly pack");
 		plan.setValidity(28);
 		plan.setDescription("2 gb/par day");
 		
 		mobilePlanSrvc.create(plan);
 		
+		//update
 		plan.setId((long)1);
-		plan.setName("yearly pack");
+		plan.setName("half yearly pack");
 		plan.setValidity(28);
-		plan.setDescription("1 gb/par day");
+		plan.setDescription("3 gb/par day");
 		
 		mobilePlanSrvc.update(plan);
 		
@@ -40,7 +41,8 @@ public class MobilePlanApp {
 		
 		mobilePlanSrvc.create(plan2);
 		
-		boolean result = mobilePlanSrvc.delete((long)1006);
+		//delete
+		boolean result = mobilePlanSrvc.delete((long)5);
 		
 		if(result) {
 			System.out.println("deleted succesfully!");

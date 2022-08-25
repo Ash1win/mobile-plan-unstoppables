@@ -36,11 +36,16 @@ public class MobilePlanSrvc {
 		return mobilePlanList;
 	}
 
-	public Object update(MobilePlan tobemerged) {
+	public boolean update(MobilePlan tobemerged) {
 		//TODO Homework... write the code to upgrade
-		MobilePlan mobileplan = mobilePlanDao.save(tobemerged);
+		Optional<MobilePlan> person = mobilePlanDao.findById(tobemerged.getId());
 		
-		return mobileplan;
+		if (person.isPresent()) {
+			MobilePlan mobileplan = mobilePlanDao.save(tobemerged);
+			return true;
+		}
+		
+		return false;
 	}
 
 	public boolean delete(Long planid) {
