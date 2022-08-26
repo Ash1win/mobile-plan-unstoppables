@@ -44,7 +44,13 @@ public class MobilePlanController {
 		ResponseEntity<Object> mpResponse = null;
 		
 		//TODO Homework... write the code to read
-		
+		Object MobilePlan = mpSrvc.read(id);
+		if(MobilePlan != null) {
+			mpResponse = new ResponseEntity<Object>(MobilePlan, null, HttpStatus.OK);
+		}
+		else {
+			mpResponse = new ResponseEntity<Object>(MobilePlan, null, HttpStatus.NOT_FOUND);
+		}
 		
 		return mpResponse;
 	}
