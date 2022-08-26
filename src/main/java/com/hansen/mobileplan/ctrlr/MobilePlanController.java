@@ -44,6 +44,7 @@ public class MobilePlanController {
 		ResponseEntity<Object> mpResponse = null;
 		
 		//TODO Homework... write the code to read
+		Object mobilePlan = mpSrvc.readAll();
 		
 		
 		return mpResponse;
@@ -56,8 +57,11 @@ public class MobilePlanController {
 
 		//TODO Homework... write the code to readall
 		
+		Iterable<MobilePlan> mobilePlan = mpSrvc.readAll();
+		mpResponse = new ResponseEntity<Iterable<MobilePlan>>(mobilePlan, null, HttpStatus.OK);
 		
 		return mpResponse;
+		
 	}
 
 	
