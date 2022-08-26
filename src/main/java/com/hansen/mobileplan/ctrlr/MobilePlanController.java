@@ -74,13 +74,20 @@ public class MobilePlanController {
 	}
 
 	@RequestMapping(value = "{planid}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> delete(@PathVariable(value = "planid") Long planid) {
+	public ResponseEntity<Boolean> delete(@PathVariable(value = "planid") Long planid) {
 		logger.info("Inside delete method");
-		ResponseEntity<Object> bookResponse = null;
+		ResponseEntity<Boolean> mpResponse = null;
+		boolean isdelete=mpSrvc.delete(planid);
+		if(isdelete) {
+			
+			mpResponse=new ResponseEntity<Boolean>(isdelete,null,HttpStatus.OK);
+        }
+		else {
+			mpResponse=new ResponseEntity<Boolean>(isdelete,null,HttpStatus.NOT_FOUND);
+
+		}
 		
-		//TODO Homework... write the code to delete
-		
-		return bookResponse;
+		return mpResponse;
 	}
 
 }
