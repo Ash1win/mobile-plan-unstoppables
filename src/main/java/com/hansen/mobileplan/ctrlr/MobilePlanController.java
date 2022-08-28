@@ -52,6 +52,8 @@ public class MobilePlanController {
 			mpResponse = new ResponseEntity<Object>(MobilePlan, null, HttpStatus.NOT_FOUND);
 		}
 		
+		
+		
 		return mpResponse;
 	}
 
@@ -74,12 +76,19 @@ public class MobilePlanController {
 	@RequestMapping(method = RequestMethod.PATCH) // OR PUT
 	public ResponseEntity<Object> update(@RequestBody MobilePlan tobemerged) {
 		logger.info("Inside update method");
-		ResponseEntity<Object> planResponse = null;
+		ResponseEntity<Object> mpResponse = null;
 		
 		//TODO Homework... write the code to update
 		
 		
-		return planResponse;	
+		boolean MobilePlan= mpSrvc.update(tobemerged);
+		
+		if(MobilePlan) {
+			mpResponse=new ResponseEntity<>("Updated SucessFully !", null, HttpStatus.CREATED);
+		}else {
+			mpResponse=new ResponseEntity<>("ID Not Found Can't Update !", null, HttpStatus.CREATED);
+		}
+		return mpResponse;	
 	}
 
 	@RequestMapping(value = "{planid}", method = RequestMethod.DELETE)
