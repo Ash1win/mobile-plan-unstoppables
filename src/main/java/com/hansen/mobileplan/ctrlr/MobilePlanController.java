@@ -52,8 +52,6 @@ public class MobilePlanController {
 			mpResponse = new ResponseEntity<Object>(MobilePlan, null, HttpStatus.NOT_FOUND);
 		}
 		
-		
-		
 		return mpResponse;
 	}
 
@@ -86,7 +84,7 @@ public class MobilePlanController {
 		if(MobilePlan) {
 			mpResponse=new ResponseEntity<>("Updated SucessFully !", null, HttpStatus.CREATED);
 		}else {
-			mpResponse=new ResponseEntity<>("ID Not Found Can't Update !", null, HttpStatus.CREATED);
+			mpResponse=new ResponseEntity<>("ID Not Found Can't Update !", null, HttpStatus.NOT_FOUND);
 		}
 		return mpResponse;	
 	}
@@ -98,10 +96,10 @@ public class MobilePlanController {
 		boolean isdelete=mpSrvc.delete(planid);
 		if(isdelete) {
 			
-			mpResponse=new ResponseEntity<Boolean>(isdelete,null,HttpStatus.OK);
+			mpResponse=new ResponseEntity<>(isdelete,null,HttpStatus.OK);
         }
 		else {
-			mpResponse=new ResponseEntity<Boolean>(isdelete,null,HttpStatus.NOT_FOUND);
+			mpResponse=new ResponseEntity<>(isdelete,null,HttpStatus.NOT_FOUND);
 
 		}
 		
