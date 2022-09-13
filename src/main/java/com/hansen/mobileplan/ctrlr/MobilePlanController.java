@@ -28,13 +28,15 @@ public class MobilePlanController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> create(@RequestBody MobilePlan inputentity) {
-		logger.info("Inside add method");
+		logger.info("Inside Create Method");
 		ResponseEntity<Object> mpResponse;
 		Object mobilePlan = mpSrvc.create(inputentity);
 		if (mobilePlan != null) {
+			logger.info("Created Mobileplan Succesfully");
 			mpResponse = new ResponseEntity<Object>(mobilePlan, null, HttpStatus.CREATED);
 			return mpResponse;
 		} else {
+			logger.error("Mobileplan not created");
 			mpResponse = new ResponseEntity<Object>(null, null, HttpStatus.NOT_ACCEPTABLE);
 			return mpResponse;
 		}
@@ -42,15 +44,18 @@ public class MobilePlanController {
 
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	public ResponseEntity<Object> read(@PathVariable(value = "id") Long id) {
+		logger.info("Inside Find Method");
 		logger.info("Inside search method");
 		ResponseEntity<Object> mpResponse = null;
 		
 		//TODO Homework... write the code to read
 		Object MobilePlan = mpSrvc.read(id);
 		if(MobilePlan != null) {
+			logger.info("Fetched Successfully");
 			mpResponse = new ResponseEntity<Object>(MobilePlan, null, HttpStatus.OK);
 		}
 		else {
+			logger.error("Mobileplan Not found");
 			mpResponse = new ResponseEntity<Object>(MobilePlan, null, HttpStatus.NOT_FOUND);
 		}
 		
@@ -59,7 +64,8 @@ public class MobilePlanController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<Iterable<MobilePlan>> readAll() {
-		logger.info("Inside readAll method");
+		logger.info("Inside show Method");
+		logger.info("Mobileplan fetched successfully");
 		ResponseEntity<Iterable<MobilePlan>> mpResponse = null;
 
 		//TODO Homework... write the code to readall
@@ -75,7 +81,8 @@ public class MobilePlanController {
 
 	@RequestMapping(method = RequestMethod.PATCH) // OR PUT
 	public ResponseEntity<Object> update(@RequestBody MobilePlan tobemerged) {
-		logger.info("Inside update method");
+		logger.info("Inside Update Method");
+		System.out.println(tobemerged);
 		ResponseEntity<Object> mpResponse = null;
 		
 		//TODO Homework... write the code to update
@@ -84,8 +91,10 @@ public class MobilePlanController {
 		boolean MobilePlan= mpSrvc.update(tobemerged);
 		
 		if(MobilePlan) {
+			logger.info("Mobileplan updated successfully");
 			mpResponse=new ResponseEntity<>("Updated SucessFully !", null, HttpStatus.CREATED);
 		}else {
+			logger.error("Mobileplan does not exist");
 			mpResponse=new ResponseEntity<>("ID Not Found Can't Update !", null, HttpStatus.NOT_FOUND);
 		}
 		return mpResponse;	
@@ -93,14 +102,16 @@ public class MobilePlanController {
 
 	@RequestMapping(value = "{planid}", method = RequestMethod.DELETE)
 	public ResponseEntity<Boolean> delete(@PathVariable(value = "planid") Long planid) {
+		logger.info("Inside delete Method");
 		logger.info("Inside delete method");
 		ResponseEntity<Boolean> mpResponse = null;
 		boolean isdelete=mpSrvc.delete(planid);
 		if(isdelete) {
-			
+			logger.info("Deleted Successfully");
 			mpResponse=new ResponseEntity<>(isdelete,null,HttpStatus.OK);
         }
 		else {
+			logger.error("Can not deleted, ID not found");
 			mpResponse=new ResponseEntity<>(isdelete,null,HttpStatus.NOT_FOUND);
 
 		}

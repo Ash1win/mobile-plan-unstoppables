@@ -11,8 +11,8 @@ import com.hansen.mobileplan.srvc.MobilePlanSrvc;
 @SpringBootApplication
 public class MobilePlanApp {
 	
-	@Bean
-	CommandLineRunner init(MobilePlanSrvc mobilePlanSrvc) {
+	/*@Bean
+	 CommandLineRunner init(MobilePlanSrvc mobilePlanSrvc) {
 		
 		return (evt) -> {
 		
@@ -55,6 +55,8 @@ public class MobilePlanApp {
 //		bookSrvc.createBook(demoBook);
 		};
 	}
+	
+	*/
 
 	public static void main(String[] args) {
 		SpringApplication.run(MobilePlanApp.class, args);
