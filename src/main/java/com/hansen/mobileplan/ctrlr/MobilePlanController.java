@@ -1,7 +1,11 @@
 package com.hansen.mobileplan.ctrlr;
+import java.time.LocalDate;
+import java.util.Date;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.hansen.mobileplan.dao.MobilePlanDao;
+import com.hansen.mobileplan.model.Auditlog;
 import com.hansen.mobileplan.model.MobilePlan;
 import com.hansen.mobileplan.srvc.MobilePlanSrvc;
 
@@ -20,6 +26,10 @@ import com.hansen.mobileplan.srvc.MobilePlanSrvc;
 @RequestMapping("/mp")
 public class MobilePlanController {
 	private Log logger = LogFactory.getLog(MobilePlanController.class);
+	
+	
+	RestTemplate restTemplate = new RestTemplate();
+	
 	@Autowired
 	MobilePlanSrvc mpSrvc;
 
@@ -34,6 +44,20 @@ public class MobilePlanController {
 		if (mobilePlan != null) {
 			logger.info("Created Mobileplan Succesfully");
 			mpResponse = new ResponseEntity<Object>(mobilePlan, null, HttpStatus.CREATED);
+			
+			Auditlog auditlog = new Auditlog();
+			
+			System.out.println(mpResponse.getBody().toString());
+			
+			auditlog.setOperationType("CREATED");
+			auditlog.setEntityJson(mpResponse.getBody().toString());
+			auditlog.setModificationDate(new Date());
+			
+			//audit
+			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
+			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
+			
+			
 			return mpResponse;
 		} else {
 			logger.error("Mobileplan not created");
