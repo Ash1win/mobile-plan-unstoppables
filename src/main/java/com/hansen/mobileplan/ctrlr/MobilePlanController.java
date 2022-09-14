@@ -95,7 +95,39 @@ public class MobilePlanController {
 		//TODO Homework... write the code to readall
 		
 		Iterable<MobilePlan> mobilePlan = mpSrvc.readAll();
-		mpResponse = new ResponseEntity<Iterable<MobilePlan>>(mobilePlan, null, HttpStatus.OK);
+		
+		Object MobilePlan = mpSrvc.readAll();
+		if(MobilePlan != null) {
+			logger.info("Fetched Successfully");
+			mpResponse = new ResponseEntity<Iterable<MobilePlan>>(mobilePlan, null, HttpStatus.OK);
+			
+			Auditlog auditlog = new Auditlog();
+			
+			
+			auditlog.setOperationType("Read_All");
+			auditlog.setEntityJson("Read all successfully");
+			auditlog.setModificationDate(new Date());
+			
+			//audit
+			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
+			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
+		}
+		else {
+			logger.error("Mobileplan Not found");
+			
+			Auditlog auditlog = new Auditlog();
+			
+			
+			auditlog.setOperationType("Read_All");
+			auditlog.setEntityJson("Read All Unsuccessful");
+			auditlog.setModificationDate(new Date());
+			
+			//audit
+			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
+			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
+			
+			mpResponse = new ResponseEntity<Iterable<MobilePlan>>(mobilePlan, null, HttpStatus.NOT_FOUND);
+		}
 		
 		return mpResponse;
 		
