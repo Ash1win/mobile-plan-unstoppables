@@ -49,7 +49,7 @@ public class MobilePlanController {
 			
 			System.out.println(mpResponse.getBody().toString());
 			
-			auditlog.setOperationType("CREATED");
+			auditlog.setOperationType("CREATE");
 			auditlog.setEntityJson(mpResponse.getBody().toString());
 			auditlog.setModificationDate(new Date());
 			
@@ -62,6 +62,19 @@ public class MobilePlanController {
 		} else {
 			logger.error("Mobileplan not created");
 			mpResponse = new ResponseEntity<Object>(null, null, HttpStatus.NOT_ACCEPTABLE);
+			
+			Auditlog auditlog = new Auditlog();
+			
+			System.out.println(mpResponse.getBody().toString());
+			
+			auditlog.setOperationType("CREATE");
+			auditlog.setEntityJson("Mobile Plan Not Created");
+			auditlog.setModificationDate(new Date());
+			
+			//audit
+			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
+			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
+			
 			return mpResponse;
 		}
 	}
