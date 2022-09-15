@@ -148,7 +148,7 @@ public class MobilePlanController {
 			
 			//audit
 			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
-			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
+//			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
 		}
 		else {
 			logger.error("Mobileplan Not found");
@@ -162,7 +162,7 @@ public class MobilePlanController {
 			
 			//audit
 			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
-			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
+//			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
 			
 			mpResponse = new ResponseEntity<Iterable<MobilePlan>>(mobilePlan, null, HttpStatus.NOT_FOUND);
 		}
