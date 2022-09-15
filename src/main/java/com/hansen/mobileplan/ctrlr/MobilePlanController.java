@@ -1,5 +1,6 @@
 package com.hansen.mobileplan.ctrlr;
 import java.time.LocalDate;
+
 import java.util.Date;
 
 import org.apache.commons.logging.Log;
@@ -186,9 +187,35 @@ public class MobilePlanController {
 		if(MobilePlan) {
 			logger.info("Mobileplan updated successfully");
 			mpResponse=new ResponseEntity<>("Updated SucessFully !", null, HttpStatus.CREATED);
+			
+			Auditlog auditlog = new Auditlog();
+			
+			System.out.println(mpResponse.getBody().toString());
+			
+			auditlog.setOperationType("UPDATED");
+			auditlog.setEntityJson("MobilePlan with id : "+tobemerged.getId()+" updated sucessfully");
+			auditlog.setModificationDate(new Date());
+			
+			//audit
+			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
+			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
+			
+			
 		}else {
 			logger.error("Mobileplan does not exist");
 			mpResponse=new ResponseEntity<>("ID Not Found Can't Update !", null, HttpStatus.NOT_FOUND);
+			
+			Auditlog auditlog = new Auditlog();
+			
+			System.out.println(mpResponse.getBody().toString());
+			
+			auditlog.setOperationType("UPDATED");
+			auditlog.setEntityJson("MobilePlan with id : "+tobemerged.getId()+" not updated");
+			auditlog.setModificationDate(new Date());
+			
+			//audit
+			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
+			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
 		}
 		return mpResponse;	
 	}
