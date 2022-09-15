@@ -90,10 +90,34 @@ public class MobilePlanController {
 		if(MobilePlan != null) {
 			logger.info("Fetched Successfully");
 			mpResponse = new ResponseEntity<Object>(MobilePlan, null, HttpStatus.OK);
+			
+			Auditlog auditlog = new Auditlog();
+			
+			System.out.println(mpResponse.getBody().toString());
+			
+			auditlog.setOperationType("Get By ID");
+			auditlog.setEntityJson(mpResponse.getBody().toString());
+			auditlog.setModificationDate(new Date());
+			
+			//audit
+			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
+			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
 		}
 		else {
 			logger.error("Mobileplan Not found");
 			mpResponse = new ResponseEntity<Object>(MobilePlan, null, HttpStatus.NOT_FOUND);
+			
+			Auditlog auditlog = new Auditlog();
+			
+			//System.out.println(mpResponse.getBody().toString());
+			
+			auditlog.setOperationType("Get By ID");
+			auditlog.setEntityJson("Mobile Plan with ID :"+ id +" does not exist.");
+			auditlog.setModificationDate(new Date());
+			
+			//audit
+			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
+			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
 		}
 		
 		return mpResponse;
