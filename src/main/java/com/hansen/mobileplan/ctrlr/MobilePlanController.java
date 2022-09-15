@@ -64,18 +64,18 @@ public class MobilePlanController {
 			logger.error("Mobileplan not created");
 			mpResponse = new ResponseEntity<Object>(null, null, HttpStatus.NOT_ACCEPTABLE);
 			
-			Auditlog auditlog = new Auditlog();
-			
-			System.out.println(mpResponse.getBody().toString());
-			
-			auditlog.setOperationType("CREATE");
-			auditlog.setEntityJson("Mobile Plan Not Created");
-			auditlog.setModificationDate(new Date());
-			
-			//audit
-			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
-			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
-			
+//			Auditlog auditlog = new Auditlog();
+//			
+//			System.out.println(mpResponse.getBody().toString());
+//			
+//			auditlog.setOperationType("CREATE");
+//			auditlog.setEntityJson("Mobile Plan Not Created");
+//			auditlog.setModificationDate(new Date());
+//			
+//			//audit
+//			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
+//			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
+//			
 			return mpResponse;
 		}
 	}
@@ -108,17 +108,17 @@ public class MobilePlanController {
 			logger.error("Mobileplan Not found");
 			mpResponse = new ResponseEntity<Object>(MobilePlan, null, HttpStatus.NOT_FOUND);
 			
-			Auditlog auditlog = new Auditlog();
-			
-			//System.out.println(mpResponse.getBody().toString());
-			
-			auditlog.setOperationType("Get By ID");
-			auditlog.setEntityJson("Mobile Plan with ID :"+ id +" does not exist.");
-			auditlog.setModificationDate(new Date());
-			
-			//audit
-			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
-			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
+//			Auditlog auditlog = new Auditlog();
+//			
+//			//System.out.println(mpResponse.getBody().toString());
+//			
+//			auditlog.setOperationType("Get By ID");
+//			auditlog.setEntityJson("Mobile Plan with ID :"+ id +" does not exist.");
+//			auditlog.setModificationDate(new Date());
+//			
+//			//audit
+//			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
+//			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
 		}
 		
 		return mpResponse;
@@ -153,16 +153,16 @@ public class MobilePlanController {
 		else {
 			logger.error("Mobileplan Not found");
 			
-			Auditlog auditlog = new Auditlog();
-			
-			
-			auditlog.setOperationType("Read_All");
-			auditlog.setEntityJson("Read All Unsuccessful");
-			auditlog.setModificationDate(new Date());
-			
-			//audit
-			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
-//			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
+//			Auditlog auditlog = new Auditlog();
+//			
+//			
+//			auditlog.setOperationType("Read_All");
+//			auditlog.setEntityJson("Read All Unsuccessful");
+//			auditlog.setModificationDate(new Date());
+//			
+//			//audit
+//			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
+////			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
 			
 			mpResponse = new ResponseEntity<Iterable<MobilePlan>>(mobilePlan, null, HttpStatus.NOT_FOUND);
 		}
@@ -205,17 +205,17 @@ public class MobilePlanController {
 			logger.error("Mobileplan does not exist");
 			mpResponse=new ResponseEntity<>("ID Not Found Can't Update !", null, HttpStatus.NOT_FOUND);
 			
-			Auditlog auditlog = new Auditlog();
-			
-			System.out.println(mpResponse.getBody().toString());
-			
-			auditlog.setOperationType("UPDATED");
-			auditlog.setEntityJson("MobilePlan with id : "+tobemerged.getId()+" not updated");
-			auditlog.setModificationDate(new Date());
-			
-			//audit
-			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
-			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
+//			Auditlog auditlog = new Auditlog();
+//			
+//			System.out.println(mpResponse.getBody().toString());
+//			
+//			auditlog.setOperationType("UPDATED");
+//			auditlog.setEntityJson("MobilePlan with id : "+tobemerged.getId()+" not updated");
+//			auditlog.setModificationDate(new Date());
+//			
+//			//audit
+//			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
+//			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
 		}
 		return mpResponse;	
 	}
@@ -246,17 +246,17 @@ public class MobilePlanController {
 			logger.error("Can not deleted, ID not found");
 			mpResponse=new ResponseEntity<>(isdelete,null,HttpStatus.NOT_FOUND);
 			
-            Auditlog auditlog = new Auditlog();
-			
-			System.out.println(mpResponse);
-			
-			auditlog.setOperationType("DELETE");
-			auditlog.setEntityJson( "Mobileplan with id : "+planid+" Not Deleted Successfully");
-			auditlog.setModificationDate(new Date());
-			
-			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
-			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
-			  
+//            Auditlog auditlog = new Auditlog();
+//			
+//			System.out.println(mpResponse);
+//			
+//			auditlog.setOperationType("DELETE");
+//			auditlog.setEntityJson( "Mobileplan with id : "+planid+" Not Deleted Successfully");
+//			auditlog.setModificationDate(new Date());
+//			
+//			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
+//			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
+//			  
 
 		}
 		
