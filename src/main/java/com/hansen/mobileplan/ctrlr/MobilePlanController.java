@@ -229,10 +229,34 @@ public class MobilePlanController {
 		if(isdelete) {
 			logger.info("Deleted Successfully");
 			mpResponse=new ResponseEntity<>(isdelete,null,HttpStatus.OK);
+			
+            Auditlog auditlog = new Auditlog();
+			
+			
+			
+			auditlog.setOperationType("DELETE");
+			auditlog.setEntityJson(" Mobileplan with id : "+planid+" Deleted Successfully");
+			auditlog.setModificationDate(new Date());
+			
+			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
+			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
+			  
         }
 		else {
 			logger.error("Can not deleted, ID not found");
 			mpResponse=new ResponseEntity<>(isdelete,null,HttpStatus.NOT_FOUND);
+			
+            Auditlog auditlog = new Auditlog();
+			
+			System.out.println(mpResponse);
+			
+			auditlog.setOperationType("DELETE");
+			auditlog.setEntityJson( "Mobileplan with id : "+planid+" Not Deleted Successfully");
+			auditlog.setModificationDate(new Date());
+			
+			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
+			restTemplate.postForObject("http://localhost:8081/ac", req, Auditlog.class);
+			  
 
 		}
 		
