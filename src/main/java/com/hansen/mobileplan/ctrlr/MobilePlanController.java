@@ -193,7 +193,7 @@ public class MobilePlanController {
 			System.out.println(mpResponse.getBody().toString());
 			
 			auditlog.setOperationType("UPDATED");
-			auditlog.setEntityJson("MobilePlan with id : "+tobemerged.getId()+" updated sucessfully");
+			auditlog.setEntityJson("MobilePlan with \"id\":"+tobemerged.getId()+", updated sucessfully");
 			auditlog.setModificationDate(new Date());
 			
 			//audit
