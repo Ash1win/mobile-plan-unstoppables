@@ -48,12 +48,12 @@ public class MobilePlanApp {
 			System.out.println("deleted succesfully!");
 		}
 		
-//		Book demoBook = new Book();
-//		demoBook.setId(1);
-//		demoBook.setName("Hansen CSD Book");
-//		demoBook.setAuthor("Satyen Pandhare");
-//		bookSrvc.createBook(demoBook);
-		};
+		Book demoBook = new Book();
+		demoBook.setId(1);
+		demoBook.setName("Hansen CSD Book");
+		demoBook.setAuthor("Satyen Pandhare");
+		bookSrvc.createBook(demoBook);
+		}
 	}
 	
 	*/

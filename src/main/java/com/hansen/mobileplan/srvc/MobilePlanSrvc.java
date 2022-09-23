@@ -14,6 +14,7 @@ public class MobilePlanSrvc {
 	@Autowired
 	MobilePlanDao mobilePlanDao;
 
+	//create
 	public Object create(MobilePlan entity) {
 
 		MobilePlan mobilePlan = mobilePlanDao.save(entity);
@@ -21,7 +22,9 @@ public class MobilePlanSrvc {
 
 	}
 
+	//get by Id
 	public Object read(Long id) {
+		
 		Optional<MobilePlan> person = mobilePlanDao.findById(id);
 		if (person.isPresent()) {
 			return person.get();
@@ -31,13 +34,16 @@ public class MobilePlanSrvc {
 
 	}
 
+	//get all
 	public Iterable<MobilePlan> readAll() {
+		
 		Iterable<MobilePlan> mobilePlanList = mobilePlanDao.findAll();
 		return mobilePlanList;
 	}
 
+	//update
 	public boolean update(MobilePlan tobemerged) {
-		//TODO Homework... write the code to upgrade
+		
 		Optional<MobilePlan> person = mobilePlanDao.findById(tobemerged.getId());
 		
 		if (person.isPresent()) {
@@ -48,8 +54,8 @@ public class MobilePlanSrvc {
 		return false;
 	}
 
+	//delete
 	public boolean delete(Long planid) {
-		//TODO Homework... write the code to delete
 		
 		Optional<MobilePlan> person = mobilePlanDao.findById(planid);
 		
@@ -57,8 +63,6 @@ public class MobilePlanSrvc {
 			mobilePlanDao.deleteById(planid);
 			return true;
 		}
-		
-		
 		
 		return false;
 	}

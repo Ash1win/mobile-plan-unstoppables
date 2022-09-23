@@ -18,14 +18,18 @@ public class MobilePlan {
 	private String description;
 	private int validity;
 
+	//getter-setters
+	
+	//Id
 	public Long getId() {
 		return id;
 	}
-
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	//Name
 	public String getName() {
 		return name;
 	}
@@ -33,7 +37,8 @@ public class MobilePlan {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
+	//description
 	public String getDescription() {
 		return description;
 	}
@@ -42,6 +47,7 @@ public class MobilePlan {
 		this.description = description;
 	}
 
+	//validity
 	public int getValidity() {
 		return validity;
 	}
@@ -50,6 +56,8 @@ public class MobilePlan {
 		this.validity = validity;
 	}
 	
+	
+	//overriding toString method
 	@Override
 	public String toString() {
 		ObjectMapper Obj = new ObjectMapper();
