@@ -36,7 +36,7 @@ public class UserLoginController {
 			userResponse = new ResponseEntity<>("Added Sucessfully !!", null, HttpStatus.CREATED);
 			
 		}else {
-			userResponse = new ResponseEntity<>("Email Already Exists !!", null, HttpStatus.NOT_FOUND);
+			userResponse = new ResponseEntity<>("Email Already Exists !!", null, HttpStatus.FORBIDDEN);
 			
 		}
 		
@@ -54,10 +54,10 @@ public class UserLoginController {
 		boolean user = userSrvc.login(userCreated);
 	
 		if(user) {
-			userResponse = new ResponseEntity<>("Login Sucessfully!!", null, HttpStatus.CREATED);
+			userResponse = new ResponseEntity<>("Login Sucessfully!!", null, HttpStatus.OK);
 			
 		}else {
-			userResponse = new ResponseEntity<>("Cannot Login!!", null, HttpStatus.NOT_FOUND);
+			userResponse = new ResponseEntity<>("Cannot Login!!", null, HttpStatus.FORBIDDEN);
 			
 		}
 		
