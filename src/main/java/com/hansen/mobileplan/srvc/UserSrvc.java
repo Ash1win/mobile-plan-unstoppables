@@ -36,18 +36,20 @@ public class UserSrvc {
 	}
 	
 	//login
-	public boolean login(User user) {
+	public Object login(User user) {
 			
 		List<User> person = (List<User>) userDao.findByEmail(user.getEmail());
 		
-			boolean result = false;
+//			boolean result = false;
 		
 			if(person.size()!=0 && user.getPassword().equals(person.get(0).getPassword())) {
-				result = true;
+//				result = true;
+				return person;
 			}
 			
 
-			return result;	
+//			return result;	
+			return null;
 		}
 	
 	
