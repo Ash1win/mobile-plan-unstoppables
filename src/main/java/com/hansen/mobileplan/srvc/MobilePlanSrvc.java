@@ -42,16 +42,18 @@ public class MobilePlanSrvc {
 	}
 
 	//update
-	public boolean update(MobilePlan tobemerged) {
+	public Object update(MobilePlan tobemerged) {
 		
 		Optional<MobilePlan> person = mobilePlanDao.findById(tobemerged.getId());
 		
+		MobilePlan mobileplan = null;
+		
 		if (person.isPresent()) {
-			MobilePlan mobileplan = mobilePlanDao.save(tobemerged);
-			return true;
+			mobileplan = mobilePlanDao.save(tobemerged);
+			return mobileplan;
 		}
 		
-		return false;
+		return mobileplan;
 	}
 
 	//delete

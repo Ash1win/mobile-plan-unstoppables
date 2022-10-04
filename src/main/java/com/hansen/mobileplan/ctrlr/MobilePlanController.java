@@ -186,19 +186,19 @@ public class MobilePlanController {
 		
 		ResponseEntity<Object> mpResponse = null;
 		
-		boolean MobilePlan= mpSrvc.update(tobemerged);
+		Object MobilePlan= mpSrvc.update(tobemerged);
 		
-		if(MobilePlan) {
+		if(MobilePlan != null) {
 			logger.info("Mobileplan updated successfully");
-			mpResponse=new ResponseEntity<>("Updated SucessFully !", null, HttpStatus.CREATED);
+			mpResponse=new ResponseEntity<>(MobilePlan, null, HttpStatus.CREATED);
 			
 			//audit
 			Auditlog auditlog = new Auditlog();
 			
 			System.out.println(mpResponse.getBody().toString());
 			
-			auditlog.setOperationType("UPDATED");
-			auditlog.setEntityJson("MobilePlan with \"id\":"+tobemerged.getId()+", updated sucessfully");
+			auditlog.setOperationType("UPDATE");
+			auditlog.setEntityJson(mpResponse.getBody().toString());
 			auditlog.setModificationDate(new Date());
 			
 			HttpEntity<Auditlog> req = new HttpEntity<Auditlog>(auditlog);
@@ -213,7 +213,7 @@ public class MobilePlanController {
 			
 			System.out.println(mpResponse.getBody().toString());
 			
-			auditlog.setOperationType("UPDATED");
+			auditlog.setOperationType("UPDATE");
 			auditlog.setEntityJson("MobilePlan with id : "+tobemerged.getId()+" not updated");
 			auditlog.setModificationDate(new Date());
 			
