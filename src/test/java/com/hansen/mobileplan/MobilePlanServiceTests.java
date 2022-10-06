@@ -3,8 +3,11 @@ package com.hansen.mobileplan;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -12,6 +15,7 @@ import com.hansen.mobileplan.model.MobilePlan;
 import com.hansen.mobileplan.srvc.MobilePlanSrvc;
 
 @SpringBootTest
+@TestMethodOrder(OrderAnnotation.class)
 class MobilePlanServiceTests {
 	
 	@Autowired
