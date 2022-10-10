@@ -1,5 +1,7 @@
 package com.hansen.mobileplan.ctrlr;
 
+import org.jasypt.util.password.PasswordEncryptor;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,17 @@ public class UserLoginController {
 	@RequestMapping(method = RequestMethod.POST ,path = "/signup")
 	public ResponseEntity<Object> create(@RequestBody User userCreated) {
 		ResponseEntity<Object> userResponse;
+		
+		//password encryption
+		String password = userCreated.getPassword();
+		
+		StrongPasswordEncryptor passswordEncryptor = new StrongPasswordEncryptor();
+		String encryptedPassword = passswordEncryptor.encryptPassword(password);
+		
+		userCreated.setPassword(encryptedPassword);
+		
+		System.out.println(encryptedPassword);
+		
 		
 		
 		Object user = userSrvc.createUser(userCreated);

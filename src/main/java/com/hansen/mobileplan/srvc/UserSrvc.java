@@ -3,6 +3,8 @@ package com.hansen.mobileplan.srvc;
 import java.util.List;
 import java.util.Optional;
 
+import org.jasypt.util.password.PasswordEncryptor;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,9 @@ public class UserSrvc {
 	
 	@Autowired 
 	UserDao userDao;
+	
+	StrongPasswordEncryptor passswordEncryptor = new StrongPasswordEncryptor();
+	
 	
 	//create
 	public Object createUser(User entity) {
@@ -41,8 +46,9 @@ public class UserSrvc {
 		List<User> person = (List<User>) userDao.findByEmail(user.getEmail());
 		
 //			boolean result = false;
+			
 		
-			if(person.size()!=0 && user.getPassword().equals(person.get(0).getPassword())) {
+			if(person.size()!=0 && passswordEncryptor.checkPassword(user.getPassword(), person.get(0).getPassword())){
 //				result = true;
 				return person;
 			}
